@@ -460,6 +460,260 @@ function CartPage({ cart, addToCart, removeFromCart, cartTotal, setActiveTab }) 
   );
 }
 
+function AboutPage({ setActiveTab }) {
+  const values = [
+    { emoji: "🌱", title: "Farm-first philosophy", desc: "Every product is sourced directly from verified farmers. No wholesalers, no cold storage chains — just fresh produce from field to doorstep." },
+    { emoji: "💸", title: "Fair prices for farmers", desc: "Farmers set their own prices and keep up to 90% of every sale. We believe the people growing your food deserve to be paid fairly." },
+    { emoji: "⚡", title: "48-hour delivery", desc: "Produce is harvested on demand and delivered within 48 hours. You get fresher food; farmers avoid waste." },
+    { emoji: "🤝", title: "Community rooted", desc: "We partner with farming cooperatives across India to bring regional specialties to your table while supporting rural livelihoods." },
+  ];
+  const team = [
+    { name: "Priya Nair", role: "Co-founder & CEO", emoji: "👩‍💼", location: "Mumbai" },
+    { name: "Karan Mehta", role: "Co-founder & CTO", emoji: "👨‍💻", location: "Bengaluru" },
+    { name: "Anita Sharma", role: "Head of Farmer Relations", emoji: "👩‍🌾", location: "Pune" },
+  ];
+  return (
+    <div style={{ padding: "0 0 3rem" }}>
+      <div style={{ background: `linear-gradient(135deg, ${theme.green900} 0%, ${theme.green800} 100%)`, padding: "3rem 2rem", textAlign: "center" }}>
+        <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: theme.green600, marginBottom: 12, fontWeight: 500 }}>Our story</div>
+        <h1 style={{ fontFamily: "Georgia, serif", fontSize: 36, color: theme.green200, lineHeight: 1.2, margin: "0 auto 16px", maxWidth: 520 }}>
+          Reconnecting farms <em style={{ color: theme.amber400, fontStyle: "italic" }}>with families</em>
+        </h1>
+        <p style={{ fontSize: 15, color: theme.green600, lineHeight: 1.8, maxWidth: 480, margin: "0 auto 28px" }}>
+          FarmDirect was founded in 2021 by two friends who couldn't find truly fresh produce in the city — and decided to fix that by going straight to the source.
+        </p>
+        <div style={{ display: "flex", justifyContent: "center", gap: 40, flexWrap: "wrap" }}>
+          {[["1,200+", "Partner farmers"], ["38", "States covered"], ["4.8★", "Avg. rating"]].map(([val, lbl]) => (
+            <div key={lbl} style={{ textAlign: "center" }}>
+              <div style={{ fontSize: 26, fontWeight: 500, color: theme.amber400 }}>{val}</div>
+              <div style={{ fontSize: 12, color: theme.green600, marginTop: 4 }}>{lbl}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: "2.5rem 2rem" }}>
+        <h2 style={{ fontFamily: "Georgia, serif", fontSize: 24, color: theme.green900, margin: "0 0 20px", textAlign: "center" }}>What we stand for</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16, maxWidth: 900, margin: "0 auto" }}>
+          {values.map((v) => (
+            <div key={v.title} style={{ background: theme.white, border: `1px solid ${theme.gray200}`, borderRadius: 14, padding: "1.5rem" }}>
+              <div style={{ fontSize: 32, marginBottom: 12 }}>{v.emoji}</div>
+              <div style={{ fontWeight: 500, fontSize: 15, color: theme.green900, marginBottom: 8 }}>{v.title}</div>
+              <div style={{ fontSize: 13, color: theme.gray500, lineHeight: 1.7 }}>{v.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: "0 2rem 1rem", maxWidth: 900, margin: "0 auto" }}>
+        <h2 style={{ fontFamily: "Georgia, serif", fontSize: 24, color: theme.green900, margin: "0 0 20px", textAlign: "center" }}>The team</h2>
+        <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
+          {team.map((t) => (
+            <div key={t.name} style={{ background: theme.white, border: `1px solid ${theme.gray200}`, borderRadius: 14, padding: "1.5rem", textAlign: "center", minWidth: 180 }}>
+              <div style={{ width: 64, height: 64, borderRadius: "50%", background: theme.green100, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 30, margin: "0 auto 12px" }}>{t.emoji}</div>
+              <div style={{ fontWeight: 500, fontSize: 15 }}>{t.name}</div>
+              <div style={{ fontSize: 12, color: theme.green700, marginTop: 4 }}>{t.role}</div>
+              <div style={{ fontSize: 11, color: theme.gray500, marginTop: 3 }}>📍 {t.location}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ margin: "2rem 2rem 0", background: theme.green100, borderRadius: 14, padding: "2rem", textAlign: "center" }}>
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 22, color: theme.green900, marginBottom: 8 }}>Ready to eat fresher?</div>
+        <div style={{ fontSize: 14, color: theme.green800, marginBottom: 20 }}>Join thousands of families already buying direct from farms.</div>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+          <button onClick={() => setActiveTab("products")} style={{ background: theme.green700, border: "none", borderRadius: 8, padding: "11px 24px", fontSize: 14, cursor: "pointer", color: theme.green100, fontFamily: "inherit", fontWeight: 500 }}>
+            Shop now →
+          </button>
+          <button onClick={() => setActiveTab("farmers")} style={{ background: "transparent", border: `1.5px solid ${theme.green700}`, borderRadius: 8, padding: "11px 24px", fontSize: 14, cursor: "pointer", color: theme.green700, fontFamily: "inherit" }}>
+            Meet our farmers
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ContactPage({ setActiveTab }) {
+  const [form, setForm] = useState({ name: "", email: "", subject: "General enquiry", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+  const [openFaq, setOpenFaq] = useState(null);
+
+  const subjects = ["General enquiry", "Order issue", "Become a seller", "Partnership", "Press / Media", "Feedback"];
+
+  const faqs = [
+    { q: "How fresh is the produce?", a: "All produce is harvested within 24 hours of your order and delivered to your doorstep within 48 hours — far fresher than supermarket shelves." },
+    { q: "How do I track my order?", a: "Once dispatched, you'll receive an SMS with a live tracking link. You can also check real-time status under the Orders tab." },
+    { q: "Can I return or get a refund?", a: "Yes. If your produce arrives damaged or spoiled, contact us within 24 hours with a photo and we'll issue a full refund or replacement — no questions asked." },
+    { q: "How do farmers get paid?", a: "Farmers receive 90% of the sale price, paid directly within 3 business days of delivery. We believe fair pay starts at the source." },
+    { q: "Do you deliver across India?", a: "We currently deliver to 38 states and Union Territories. Enter your pincode at checkout to confirm availability in your area." },
+    { q: "How do I list my produce as a farmer?", a: "Click 'Farmer view' in the top navigation, create a free account, and start listing your produce in minutes. Our team will verify your farm within 48 hours." },
+  ];
+
+  const handleSubmit = () => {
+    if (!form.name || !form.email || !form.message) return;
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div style={{ padding: "5rem 2rem", textAlign: "center", maxWidth: 480, margin: "0 auto" }}>
+        <div style={{ width: 72, height: 72, borderRadius: "50%", background: theme.green100, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 34, margin: "0 auto 20px" }}>✅</div>
+        <h2 style={{ fontFamily: "Georgia, serif", fontSize: 28, color: theme.green900, marginBottom: 10 }}>Message sent!</h2>
+        <p style={{ fontSize: 15, color: theme.gray500, lineHeight: 1.7, marginBottom: 28 }}>
+          Thanks for reaching out, <strong>{form.name}</strong>. We typically respond within one business day. Keep an eye on your inbox at <strong>{form.email}</strong>.
+        </p>
+        <button onClick={() => { setSubmitted(false); setForm({ name: "", email: "", subject: "General enquiry", message: "" }); }} style={{ background: theme.green700, border: "none", borderRadius: 8, padding: "11px 24px", fontSize: 14, cursor: "pointer", color: theme.green100, fontFamily: "inherit", fontWeight: 500 }}>
+          Send another message
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ padding: "0 0 3rem" }}>
+      {/* Header */}
+      <div style={{ background: `linear-gradient(135deg, ${theme.green100} 0%, #f0f7e6 100%)`, padding: "3rem 2rem", textAlign: "center" }}>
+        <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: theme.green700, marginBottom: 12, fontWeight: 500 }}>Get in touch</div>
+        <h1 style={{ fontFamily: "Georgia, serif", fontSize: 34, color: theme.green900, margin: "0 0 12px" }}>
+          We'd love to <em style={{ color: theme.green700, fontStyle: "italic" }}>hear from you</em>
+        </h1>
+        <p style={{ fontSize: 15, color: theme.green800, lineHeight: 1.7, maxWidth: 440, margin: "0 auto" }}>
+          Whether you have a question about an order, want to join as a seller, or just want to say hello — our team is here.
+        </p>
+      </div>
+
+      <div style={{ padding: "2.5rem 2rem", display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 28, maxWidth: 900, margin: "0 auto", alignItems: "start" }}>
+
+        {/* Left: contact info cards */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <h3 style={{ fontFamily: "Georgia, serif", fontSize: 20, color: theme.green900, margin: "0 0 4px" }}>Contact details</h3>
+          {[
+            { emoji: "📧", label: "Email", value: "hello@farmdirect.in", sub: "We reply within 24 hours" },
+            { emoji: "📞", label: "Phone", value: "+91 98765 43210", sub: "Mon–Sat, 9 AM – 6 PM" },
+            { emoji: "📍", label: "Office", value: "12, Agri Hub, Baner", sub: "Pune, Maharashtra 411045" },
+            { emoji: "💬", label: "WhatsApp", value: "+91 98765 43210", sub: "Quick support via chat" },
+          ].map((c) => (
+            <div key={c.label} style={{ background: theme.white, border: `1px solid ${theme.gray200}`, borderRadius: 12, padding: "14px 16px", display: "flex", gap: 14, alignItems: "center" }}>
+              <div style={{ width: 44, height: 44, borderRadius: 10, background: theme.green100, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>{c.emoji}</div>
+              <div>
+                <div style={{ fontSize: 12, color: theme.gray500, marginBottom: 2 }}>{c.label}</div>
+                <div style={{ fontSize: 14, fontWeight: 500, color: theme.green900 }}>{c.value}</div>
+                <div style={{ fontSize: 11, color: theme.gray500, marginTop: 1 }}>{c.sub}</div>
+              </div>
+            </div>
+          ))}
+
+          {/* Social links */}
+          <div style={{ background: theme.white, border: `1px solid ${theme.gray200}`, borderRadius: 12, padding: "14px 16px" }}>
+            <div style={{ fontSize: 12, color: theme.gray500, marginBottom: 10 }}>Follow us</div>
+            <div style={{ display: "flex", gap: 8 }}>
+              {[["𝕏", "Twitter"], ["📘", "Facebook"], ["📸", "Instagram"], ["▶️", "YouTube"]].map(([icon, name]) => (
+                <button key={name} title={name} style={{ width: 36, height: 36, borderRadius: 8, border: `1px solid ${theme.gray200}`, background: theme.gray50, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>{icon}</button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right: contact form */}
+        <div style={{ background: theme.white, border: `1px solid ${theme.gray200}`, borderRadius: 16, padding: "1.75rem" }}>
+          <h3 style={{ fontFamily: "Georgia, serif", fontSize: 20, color: theme.green900, margin: "0 0 20px" }}>Send us a message</h3>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
+            <div>
+              <label style={{ fontSize: 12, fontWeight: 500, color: theme.gray800, display: "block", marginBottom: 5 }}>Your name *</label>
+              <input
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                placeholder="Priya Sharma"
+                style={{ width: "100%", border: `1px solid ${theme.gray200}`, borderRadius: 8, padding: "9px 12px", fontSize: 14, fontFamily: "inherit", color: theme.gray800, background: theme.gray50 }}
+              />
+            </div>
+            <div>
+              <label style={{ fontSize: 12, fontWeight: 500, color: theme.gray800, display: "block", marginBottom: 5 }}>Email address *</label>
+              <input
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                placeholder="you@example.com"
+                type="email"
+                style={{ width: "100%", border: `1px solid ${theme.gray200}`, borderRadius: 8, padding: "9px 12px", fontSize: 14, fontFamily: "inherit", color: theme.gray800, background: theme.gray50 }}
+              />
+            </div>
+          </div>
+
+          <div style={{ marginBottom: 12 }}>
+            <label style={{ fontSize: 12, fontWeight: 500, color: theme.gray800, display: "block", marginBottom: 5 }}>Subject</label>
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+              {subjects.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setForm({ ...form, subject: s })}
+                  style={{ fontSize: 12, padding: "5px 12px", borderRadius: 20, border: `1px solid ${form.subject === s ? theme.green700 : theme.gray200}`, background: form.subject === s ? theme.green100 : theme.white, color: form.subject === s ? theme.green700 : theme.gray500, cursor: "pointer", fontFamily: "inherit", fontWeight: form.subject === s ? 500 : 400 }}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ fontSize: 12, fontWeight: 500, color: theme.gray800, display: "block", marginBottom: 5 }}>Message *</label>
+            <textarea
+              value={form.message}
+              onChange={(e) => setForm({ ...form, message: e.target.value })}
+              placeholder="Tell us how we can help..."
+              rows={5}
+              style={{ width: "100%", border: `1px solid ${theme.gray200}`, borderRadius: 8, padding: "9px 12px", fontSize: 14, fontFamily: "inherit", color: theme.gray800, background: theme.gray50, resize: "vertical" }}
+            />
+          </div>
+
+          <button
+            onClick={handleSubmit}
+            style={{ width: "100%", background: (!form.name || !form.email || !form.message) ? theme.gray200 : theme.green700, border: "none", borderRadius: 10, padding: "12px", fontSize: 15, cursor: (!form.name || !form.email || !form.message) ? "not-allowed" : "pointer", color: (!form.name || !form.email || !form.message) ? theme.gray500 : theme.green100, fontFamily: "inherit", fontWeight: 500, transition: "all 0.15s" }}
+          >
+            Send message →
+          </button>
+          <p style={{ fontSize: 11, color: theme.gray500, marginTop: 10, textAlign: "center" }}>We usually respond within one business day.</p>
+        </div>
+      </div>
+
+      {/* FAQ Section */}
+      <div style={{ padding: "0 2rem 0", maxWidth: 900, margin: "0 auto" }}>
+        <h2 style={{ fontFamily: "Georgia, serif", fontSize: 24, color: theme.green900, margin: "0 0 16px", textAlign: "center" }}>Frequently asked questions</h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {faqs.map((faq, i) => (
+            <div
+              key={i}
+              style={{ background: theme.white, border: `1px solid ${openFaq === i ? theme.green200 : theme.gray200}`, borderRadius: 12, overflow: "hidden", transition: "border-color 0.15s" }}
+            >
+              <button
+                onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                style={{ width: "100%", padding: "14px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", border: "none", background: "transparent", cursor: "pointer", fontFamily: "inherit", textAlign: "left" }}
+              >
+                <span style={{ fontSize: 14, fontWeight: 500, color: theme.green900 }}>{faq.q}</span>
+                <span style={{ fontSize: 18, color: theme.green700, transform: openFaq === i ? "rotate(45deg)" : "none", transition: "transform 0.2s", flexShrink: 0, marginLeft: 12 }}>+</span>
+              </button>
+              {openFaq === i && (
+                <div style={{ padding: "0 16px 14px", fontSize: 14, color: theme.gray500, lineHeight: 1.7 }}>
+                  {faq.a}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom CTA */}
+      <div style={{ margin: "2.5rem 2rem 0", background: theme.green100, borderRadius: 14, padding: "2rem", textAlign: "center" }}>
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 20, color: theme.green900, marginBottom: 8 }}>Still have questions?</div>
+        <div style={{ fontSize: 14, color: theme.green800, marginBottom: 20 }}>Our support team is available Mon–Sat, 9 AM to 6 PM.</div>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+          <button onClick={() => setActiveTab("products")} style={{ background: theme.green700, border: "none", borderRadius: 8, padding: "11px 24px", fontSize: 14, cursor: "pointer", color: theme.green100, fontFamily: "inherit", fontWeight: 500 }}>Shop now →</button>
+          <button onClick={() => setActiveTab("about")} style={{ background: "transparent", border: `1.5px solid ${theme.green700}`, borderRadius: 8, padding: "11px 24px", fontSize: 14, cursor: "pointer", color: theme.green700, fontFamily: "inherit" }}>About us</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function FarmerDashboard() {
   const [listings] = useState([
     { id: 1, name: "Alphonso Mangoes", price: 180, unit: "kg", stock: 200, orders: 12, emoji: "🥭" },
